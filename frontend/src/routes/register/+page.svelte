@@ -1,8 +1,9 @@
 <script lang="ts">
 	let username = "";
 	let password = "";
+	let confirmPassword = "";
 
-	let error: string | undefined = "testing";
+	let error: string | undefined = undefined;
 
 	$: {
 		if (username.length > 0 && password.length > 0) {
@@ -10,10 +11,16 @@
 		}
 	}
 
-	async function login() {
-		console.log(JSON.stringify({ username, password }));
+	$: {
+		if (password !== confirmPassword) {
+			error = "Passwords do not match";
+		} else if (error == "Passwords do not match") {
+			error = undefined;
+		}
+	}
 
-		const res = await fetch("http://localhost:8080/login", {
+	async function register() {
+		const res = await fetch("http://localhost:8080/register", {
 			body: JSON.stringify({ username, password }),
 			method: "post",
 			headers: {
@@ -27,15 +34,17 @@
 			error = data;
 			username = "";
 			password = "";
+			confirmPassword = "";
+		} else {
+			window.open("/");
 		}
 	}
 </script>
 
-<form on:submit|preventDefault={login} class="p-2 w-96 m-auto mt-36">
-	<h1 class="text-lg font-bold">Login</h1>
+<form on:submit|preventDefault={register} class="p-2 w-96 m-auto mt-36">
+	<h1 class="text-lg font-bold">Register</h1>
 
 	<label for="username">Username:</label>
-	<br />
 	<input
 		type="text"
 		name="username"
@@ -46,12 +55,20 @@
 	<br />
 
 	<label for="password">Password:</label>
-	<br />
 	<input
 		type="password"
 		name="password"
 		placeholder="Password..."
 		bind:value={password}
+	/>
+
+	<br />
+	<label for="password">Confirm password:</label>
+	<input
+		type="password"
+		name="password"
+		placeholder="Password..."
+		bind:value={confirmPassword}
 	/>
 
 	<br />
@@ -64,11 +81,7 @@
 		type="submit"
 		class="mt-6 disabled:bg-slate-600"
 		disabled={!(!error && username.length > 0 && password.length > 0)}
-		>Login</button
-	>
-
-	<a href="/register" class="mt-6 block hover:underline"
-		>Don't have an account? Sign up here...</a
+		>Register</button
 	>
 </form>
 
@@ -76,5 +89,9 @@
 	input,
 	button {
 		@apply bg-slate-400 text-slate-800 p-1 pl-2 pr-2 rounded-xl w-full placeholder-slate-600;
+	}
+
+	label {
+		@apply mt-2 block mb-0;
 	}
 </style>

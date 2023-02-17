@@ -8,21 +8,31 @@ import { genNewSession, validateSession } from "./genSession";
 const app = express();
 app.use(cookieParser());
 app.use(cors());
+app.use(express.json());
 
 const prisma = new PrismaClient();
 
 const PORT = 8080;
 
 app.post("/register", async (req, res) => {
-	const body = JSON.parse(req.body);
+	const body = req.body;
 	if (!body.username || !body.password) {
-		res.status(400).send("malformed body");
+		res.status(400).json("malformed body");
 		return;
 	}
 	const data: { username: string; password: string } = {
 		username: body.username,
 		password: body.password,
 	};
+
+	if (
+		(await prisma.user.findFirst({
+			where: { name: { equals: data.username } },
+		})) != null
+	) {
+		res.status(409).json("Username taken");
+		return;
+	}
 
 	const passHash = bcrypt.hashSync(data.password, 10);
 
@@ -37,9 +47,10 @@ app.post("/register", async (req, res) => {
 		.send();
 });
 app.post("/login", async (req, res) => {
-	const body = JSON.parse(req.body);
+	const body = req.body;
+
 	if (!body.username || !body.password) {
-		res.status(400).send("malformed body");
+		res.status(400).json("malformed body");
 		return;
 	}
 	const data: { username: string; password: string } = {
@@ -51,10 +62,10 @@ app.post("/login", async (req, res) => {
 		where: { name: { equals: data.username } },
 	});
 	if (user == null)
-		return res.status(401).send("Password or username incorrect");
+		return res.status(401).json("Username or password is incorrect!");
 
 	if (!bcrypt.compareSync(data.password, user.passHash))
-		return res.status(401).send("Password or username incorrect");
+		return res.status(401).json("Username or password is incorrect!");
 
 	const session = await genNewSession(user.id);
 
