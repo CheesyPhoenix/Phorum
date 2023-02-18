@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
+	import { page } from "$app/stores";
+
 	let username = "";
 	let password = "";
 	let confirmPassword = "";
@@ -20,7 +23,7 @@
 	}
 
 	async function register() {
-		const res = await fetch("http://localhost:8080/register", {
+		const res = await fetch("/api/register", {
 			body: JSON.stringify({ username, password }),
 			method: "post",
 			headers: {
@@ -28,15 +31,14 @@
 			},
 		});
 
-		const data = await res.json();
-
 		if (!res.ok) {
+			const data = await res.json();
 			error = data;
 			username = "";
 			password = "";
 			confirmPassword = "";
 		} else {
-			window.open("/");
+			goto($page.url.searchParams.get("callback") ?? "/");
 		}
 	}
 </script>
@@ -82,6 +84,10 @@
 		class="mt-6 disabled:bg-slate-600"
 		disabled={!(!error && username.length > 0 && password.length > 0)}
 		>Register</button
+	>
+
+	<a href="/login" class="mt-6 block hover:underline"
+		>Already have an account? Log in here...</a
 	>
 </form>
 

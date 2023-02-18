@@ -1,8 +1,11 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
+	import { page } from "$app/stores";
+
 	let username = "";
 	let password = "";
 
-	let error: string | undefined = "testing";
+	let error: string | undefined = undefined;
 
 	$: {
 		if (username.length > 0 && password.length > 0) {
@@ -11,22 +14,20 @@
 	}
 
 	async function login() {
-		console.log(JSON.stringify({ username, password }));
-
-		const res = await fetch("http://localhost:8080/login", {
+		const res = await fetch("/api/login", {
 			body: JSON.stringify({ username, password }),
 			method: "post",
-			headers: {
-				"Content-Type": "application/json",
-			},
 		});
 
-		const data = await res.json();
-
 		if (!res.ok) {
-			error = data;
+			const data = await res.json();
+			console.log(data);
+
+			error = data.message;
 			username = "";
 			password = "";
+		} else {
+			goto($page.url.searchParams.get("callback") ?? "/");
 		}
 	}
 </script>
@@ -67,7 +68,10 @@
 		>Login</button
 	>
 
-	<a href="/register" class="mt-6 block hover:underline"
+	<a
+		href="/register?callback={$page.url.searchParams.get('callback') ??
+			'/'}"
+		class="mt-6 block hover:underline"
 		>Don't have an account? Sign up here...</a
 	>
 </form>
