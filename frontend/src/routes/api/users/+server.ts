@@ -1,5 +1,4 @@
-import { error, type Cookies } from "@sveltejs/kit";
-import type { RequestHandler } from "./$types";
+import { error, type RequestHandler, type Cookies } from "@sveltejs/kit";
 import { validateSession } from "$lib/server/genSession";
 import { PrismaClient } from "@prisma/client";
 
@@ -16,14 +15,12 @@ async function validSession(cookies: Cookies) {
 }
 
 export const GET: RequestHandler = async ({ cookies }) => {
-	const userId = await validSession(cookies);
+	await validSession(cookies);
 
-	const user = await prisma.user.findUnique({
-		where: { id: userId },
-		select: { name: true, id: true },
+	const users = await prisma.user.findMany({
+		orderBy: { id: "desc" },
+		select: { id: true, name: true },
 	});
 
-	if (user == null) throw error(401);
-
-	return new Response(JSON.stringify(user));
+	return new Response(JSON.stringify(users));
 };

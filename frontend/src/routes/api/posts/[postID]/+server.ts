@@ -27,11 +27,73 @@ export const GET: RequestHandler = async ({ params, cookies }) => {
 	}
 
 	const post = await prisma.post.findUnique({
-		where: { id: parseInt(params.postID) },
+		where: { id },
 		include: { author: { select: { name: true } } },
 	});
 
 	if (post == null) throw error(404);
 
 	return new Response(JSON.stringify(post));
+};
+
+export const DELETE: RequestHandler = async ({ params, cookies }) => {
+	const userID = await validSession(cookies);
+
+	let id: number;
+
+	try {
+		id = parseInt(params.postID);
+	} catch (_) {
+		throw error(400, "invalid id");
+	}
+
+	const post = await prisma.post.findUnique({
+		where: { id: parseInt(params.postID) },
+		include: { author: { select: { name: true } } },
+	});
+
+	if (post == null) throw error(404);
+	if (post.authorId != userID) throw error(401);
+
+	await prisma.post.delete({ where: { id } });
+
+	return new Response();
+};
+
+export const PATCH: RequestHandler = async ({ cookies, request, params }) => {
+	await validSession(cookies);
+	let id: number;
+
+	try {
+		id = parseInt(params.postID);
+	} catch (_) {
+		throw error(400, "invalid id");
+	}
+
+	const body = await request.json();
+	if (
+		!body.title ||
+		typeof body.title != "string" ||
+		!body.content ||
+		typeof body.content != "string"
+	) {
+		throw error(400, "Malformed body");
+	}
+
+	const data: { title: string; content: string; image?: string } = {
+		title: body.title,
+		content: body.content,
+		image: body.image,
+	};
+
+	await prisma.post.update({
+		data: {
+			content: data.content,
+			title: data.title,
+			imageDataURL: data.image,
+		},
+		where: { id },
+	});
+
+	return new Response();
 };

@@ -13,7 +13,7 @@ export async function genNewSession(userId: number): Promise<string> {
 	}
 
 	const expire = new Date();
-	expire.setUTCMinutes(expire.getUTCMinutes() + 10);
+	expire.setUTCMinutes(expire.getUTCMinutes() + 30);
 
 	await prisma.session.create({ data: { key, userId, expire } });
 

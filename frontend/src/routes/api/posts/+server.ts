@@ -20,7 +20,6 @@ export const GET: RequestHandler = async ({ cookies }) => {
 
 	const posts = await prisma.post.findMany({
 		orderBy: { id: "desc" },
-		take: 10,
 	});
 
 	return new Response(JSON.stringify(posts));

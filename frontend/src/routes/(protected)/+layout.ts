@@ -9,6 +9,7 @@ export const load: LayoutLoad = async ({ fetch, url }) => {
 
 	const user: {
 		name: string;
+		id: number;
 	} = await res.json();
 
 	return { user };
