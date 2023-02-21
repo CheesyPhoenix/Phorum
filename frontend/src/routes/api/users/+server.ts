@@ -1,8 +1,8 @@
 import { error, type RequestHandler, type Cookies } from "@sveltejs/kit";
 import { validateSession } from "$lib/server/genSession";
-import { PrismaClient } from "@prisma/client";
+import { Prisma } from "$lib/server/PrismaClient";
 
-const prisma = new PrismaClient();
+const prisma = Prisma.getPrisma();
 
 async function validSession(cookies: Cookies) {
 	const key = cookies.get("key");

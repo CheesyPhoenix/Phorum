@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma } from "$lib/server/PrismaClient";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -10,7 +10,7 @@ app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
 
-const prisma = new PrismaClient();
+const prisma = Prisma.getPrisma();
 
 const PORT = 8080;
 

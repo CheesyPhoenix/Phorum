@@ -1,10 +1,10 @@
 import { error } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
-import { PrismaClient } from "@prisma/client";
+import { Prisma } from "$lib/server/PrismaClient";
 import bcrypt from "bcrypt";
 import { genNewSession } from "$lib/server/genSession";
 
-const prisma = new PrismaClient();
+const prisma = Prisma.getPrisma();
 
 export const POST: RequestHandler = async ({ cookies, request }) => {
 	const body = await request.json();
@@ -26,7 +26,11 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
 
 	const session = await genNewSession(user.id);
 
-	cookies.set("key", session);
+	cookies.set("key", session, {
+		httpOnly: true,
+		sameSite: "lax",
+		path: "/",
+	});
 
 	return new Response();
 };

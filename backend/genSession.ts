@@ -1,6 +1,6 @@
 import { randomBytes } from "crypto";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { Prisma } from "$lib/server/PrismaClient";
+const prisma = Prisma.getPrisma();
 
 export async function genNewSession(userId: number): Promise<string> {
 	let key = randomBytes(32).toString("hex");

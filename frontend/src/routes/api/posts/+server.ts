@@ -1,32 +1,12 @@
-import { error, type Cookies } from "@sveltejs/kit";
+import { error } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
-import { validateSession } from "$lib/server/genSession";
-import { PrismaClient } from "@prisma/client";
+import { validateSessionRedirect } from "$lib/server/genSession";
+import { Prisma } from "$lib/server/PrismaClient";
 
-const prisma = new PrismaClient();
+const prisma = Prisma.getPrisma();
 
-async function validSession(cookies: Cookies) {
-	const key = cookies.get("key");
-	if (!key) throw error(401);
-
-	const userId = await validateSession(key);
-	if (userId == undefined) throw error(401);
-
-	return userId;
-}
-
-export const GET: RequestHandler = async ({ cookies }) => {
-	await validSession(cookies);
-
-	const posts = await prisma.post.findMany({
-		orderBy: { id: "desc" },
-	});
-
-	return new Response(JSON.stringify(posts));
-};
-
-export const POST: RequestHandler = async ({ cookies, request }) => {
-	const userId = await validSession(cookies);
+export const POST: RequestHandler = async ({ cookies, request, url }) => {
+	const userId = await validateSessionRedirect(cookies, url);
 
 	const body = await request.json();
 	if (

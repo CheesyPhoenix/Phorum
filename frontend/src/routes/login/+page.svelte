@@ -19,6 +19,8 @@
 			method: "post",
 		});
 
+		console.log(res.status);
+
 		if (!res.ok) {
 			const data = await res.json();
 			console.log(data);
@@ -27,7 +29,13 @@
 			username = "";
 			password = "";
 		} else {
+			console.log(
+				"going to: " + $page.url.searchParams.get("callback") ?? "/"
+			);
+
 			goto($page.url.searchParams.get("callback") ?? "/");
+
+			console.log("Are we there yet?");
 		}
 	}
 </script>

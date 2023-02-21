@@ -1,9 +1,9 @@
 import { error, type Cookies } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 import { validateSession } from "$lib/server/genSession";
-import { PrismaClient } from "@prisma/client";
+import { Prisma } from "$lib/server/PrismaClient";
 
-const prisma = new PrismaClient();
+const prisma = Prisma.getPrisma();
 
 async function validSession(cookies: Cookies) {
 	const key = cookies.get("key");
@@ -14,27 +14,6 @@ async function validSession(cookies: Cookies) {
 
 	return userId;
 }
-
-export const GET: RequestHandler = async ({ params, cookies }) => {
-	await validSession(cookies);
-
-	let id: number;
-
-	try {
-		id = parseInt(params.postID);
-	} catch (_) {
-		throw error(400, "invalid id");
-	}
-
-	const post = await prisma.post.findUnique({
-		where: { id },
-		include: { author: { select: { name: true } } },
-	});
-
-	if (post == null) throw error(404);
-
-	return new Response(JSON.stringify(post));
-};
 
 export const DELETE: RequestHandler = async ({ params, cookies }) => {
 	const userID = await validSession(cookies);
