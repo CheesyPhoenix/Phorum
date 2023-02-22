@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
+	import BackBtn from "$lib/components/BackBtn.svelte";
 	import { error } from "@sveltejs/kit";
 	import type { PageData } from "./$types";
 

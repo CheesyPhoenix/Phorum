@@ -28,7 +28,7 @@
 	<div
 		in:fade
 		out:fade
-		class="absolute w-screen m-0 flex justify-center bg-black bg-opacity-30 h-screen top-0 left-0"
+		class="absolute w-screen m-0 flex justify-center bg-black bg-opacity-30 h-screen top-0 left-0 z-20"
 	>
 		<div in:scale out:scale class="h-screen flex flex-col justify-center">
 			<Shadow color={"#1d4ed8"} />

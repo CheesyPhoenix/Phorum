@@ -53,3 +53,13 @@ export async function validateSessionRedirect(cookies: Cookies, url: URL) {
 
 	return userId;
 }
+
+export async function validateSessionError(cookies: Cookies) {
+	const key = cookies.get("key");
+	if (!key) throw error(401);
+
+	const userId = await validateSession(key);
+	if (userId == undefined) throw error(401);
+
+	return userId;
+}

@@ -21,7 +21,14 @@ export const load: PageServerLoad = async ({ cookies, url, params }) => {
 		where: { id },
 		select: {
 			name: true,
-			posts: { select: { id: true, content: true, title: true } },
+			id: true,
+			posts: {
+				select: {
+					id: true,
+					content: true,
+					title: true,
+				},
+			},
 		},
 	});
 
@@ -29,5 +36,5 @@ export const load: PageServerLoad = async ({ cookies, url, params }) => {
 		throw error(404, "User not found");
 	}
 
-	return { user };
+	return { pageUser: user };
 };

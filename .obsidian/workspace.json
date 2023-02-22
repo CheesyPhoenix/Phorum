@@ -1,0 +1,144 @@
+{
+  "main": {
+    "id": "109dc288d1dc32c7",
+    "type": "split",
+    "children": [
+      {
+        "id": "0cac7106006144b1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "08c4bfd83860c4c7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "oppgave.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "921c3704c8d93f6b",
+    "type": "split",
+    "children": [
+      {
+        "id": "7edba8798e9bc355",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6c3055bb92c6bcb9",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "05fe6ca0db413ecf",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "e3c50c57e0eb5a85",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "right": {
+    "id": "6e488c654ceb5c1f",
+    "type": "split",
+    "children": [
+      {
+        "id": "edcf0178be4772f6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a006d1c5efcc510b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "oppgave.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "b9ee70aa38632698",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "oppgave.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "44d82ee3db7ab229",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "de0bb3bea4669f47",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "oppgave.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "6c3055bb92c6bcb9",
+  "lastOpenFiles": [
+    "frontend/README.md"
+  ]
+}

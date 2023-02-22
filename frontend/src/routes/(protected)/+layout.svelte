@@ -5,6 +5,6 @@
 	export let data: LayoutData;
 </script>
 
-<Header username={data.user.name} />
+<Header username={data.user.name} userID={data.user.id} />
 
 <slot />
