@@ -1,10 +1,15 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
+	import AddTags from "$lib/components/AddTags.svelte";
 	import BackBtn from "$lib/components/BackBtn.svelte";
+	import { dataset_dev } from "svelte/internal";
+	import type { PageData } from "./$types";
 
 	let title = "";
 	let content = "";
 	let images: FileList;
+
+	export let data: PageData;
 
 	async function submit() {
 		let image = "";
@@ -74,6 +79,8 @@
 				class="max-w-52 max-h-52 mt-2"
 			/>
 		{/if}
+
+		<AddTags tags={data.tags} />
 
 		<button
 			type="submit"

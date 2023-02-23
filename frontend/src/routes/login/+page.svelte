@@ -29,13 +29,7 @@
 			username = "";
 			password = "";
 		} else {
-			console.log(
-				"going to: " + $page.url.searchParams.get("callback") ?? "/"
-			);
-
 			goto($page.url.searchParams.get("callback") ?? "/");
-
-			console.log("Are we there yet?");
 		}
 	}
 </script>

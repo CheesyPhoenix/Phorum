@@ -17,11 +17,12 @@ datasource db {
 
 model Post {
   id            Int     @id @default(autoincrement())
-  author        User    @relation(fields: [authorId], references: [id])
+  author        User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId      Int
   title         String
   content       String
   imageDataURL  String?
+  tags          Tag[]
 }
 
 model User {
@@ -34,8 +35,14 @@ model User {
 
 model Session {
   id        Int     @id @default(autoincrement())
-  user      User    @relation(fields: [userId], references: [id])
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    Int
   key       String  @unique
   expire    DateTime
+}
+
+model Tag {
+  id        Int     @id @default(autoincrement())
+  name      String  @unique    
+  posts     Post[]
 }

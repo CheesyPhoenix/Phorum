@@ -18,6 +18,30 @@
 
 		await invalidateAll();
 	}
+
+	async function deletePosts() {
+		const res = await fetch("/api/users/me/posts", {
+			method: "DELETE",
+		});
+
+		if (res.status == 401) goto("/login?callback=" + $page.url.pathname);
+
+		if (!res.ok) throw error(res.status, await res.text());
+
+		await invalidateAll();
+	}
+
+	async function deleteUser() {
+		const res = await fetch("/api/users/me/account", {
+			method: "DELETE",
+		});
+
+		if (res.status == 401) goto("/login?callback=" + $page.url.pathname);
+
+		if (!res.ok) throw error(res.status, await res.text());
+
+		goto("/logout");
+	}
 </script>
 
 <BackBtn />
@@ -26,15 +50,18 @@
 	<h2 class="text-xl font-bold mb-3 pt-3 inline-block">
 		{data.pageUser.name}
 	</h2>
-
-	<button
-		class="inline-block float-right hover:bg-red-500 duration-150 bg-red-700 w-max p-2 rounded-xl mb-6"
-		>Delete All Posts</button
-	>
-	<button
-		class="inline-block float-right mr-2 hover:bg-red-500 duration-150 bg-red-700 w-max p-2 rounded-xl mb-6"
-		>Delete Account</button
-	>
+	{#if data.user.id == data.pageUser.id}
+		<button
+			on:click={deletePosts}
+			class="inline-block float-right hover:bg-red-500 duration-150 bg-red-700 w-max p-2 rounded-xl mb-6"
+			>Delete All Posts</button
+		>
+		<button
+			on:click={deleteUser}
+			class="inline-block float-right mr-2 hover:bg-red-500 duration-150 bg-red-700 w-max p-2 rounded-xl mb-6"
+			>Delete Account</button
+		>
+	{/if}
 
 	{#each data.pageUser.posts as post}
 		<div class="max-w-5xl relative">
