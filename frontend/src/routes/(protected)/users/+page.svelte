@@ -4,7 +4,9 @@
 	export let data: PageData;
 </script>
 
-<main class="p-2">
+<h2 class="text-lg font-bold ml-4">Users</h2>
+
+<main class="p-4">
 	{#each data.users as user}
 		<a
 			class="bg-slate-700 max-w-5xl p-4 mb-2 rounded-lg block hover:bg-slate-600 duration-200"

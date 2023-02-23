@@ -1,10 +1,10 @@
 Krav til prosjekt: 
 - [x] Github Prosjektet lastes opp til github og elev commiter endringer underveis. Minimum en gang pr. økt. Lærer får tilgang, og kan commit og pushe kommentarer. Elev kan bruke fetch og deretter pull for å hente kommentarer. 
-- [ ] Database
-	- [ ] Database og ER-diagram 
+- [x] Database
+	- [x] Database og ER-diagram 
 		- [x] ER-diagram
 		- [x] En til mange
-		- [ ] mange til mange
+		- [x] mange til mange
 	- [x] Create / Read / Update / Delete funksjonalitet (På nettsiden skal det være mulig å legge til data, endre data og slette data. Data skal også vises.) 
 - [x] Brukerhåndtering
 	- [x] Registreringskjema for nye brukere

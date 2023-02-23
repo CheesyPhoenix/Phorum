@@ -75,7 +75,7 @@
 
 			{#if data.user.id == data.pageUser.id}
 				<button
-					class="absolute top-1 right-1 hover:bg-slate-600 p-1 rounded-lg duration-200"
+					class="absolute top-1 right-1 hover:bg-slate-600 p-1 rounded-lg duration-200 hover:drop-shadow-md"
 					on:click={() => deletePost(post.id)}
 				>
 					<svg

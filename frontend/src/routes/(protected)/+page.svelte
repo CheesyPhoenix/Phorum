@@ -4,7 +4,7 @@
 	export let data: PageData;
 </script>
 
-<main class="p-2">
+<main class="p-4 pt-0">
 	<a
 		href="/newPost"
 		class="hover:bg-blue-500 duration-150 block bg-blue-700 w-max p-2 rounded-xl mb-4"

@@ -2,12 +2,13 @@
 	import { goto } from "$app/navigation";
 	import AddTags from "$lib/components/AddTags.svelte";
 	import BackBtn from "$lib/components/BackBtn.svelte";
-	import { dataset_dev } from "svelte/internal";
+	import type { Tag } from "@prisma/client";
 	import type { PageData } from "./$types";
 
 	let title = "";
 	let content = "";
 	let images: FileList;
+	let selectedTags: Tag[];
 
 	export let data: PageData;
 
@@ -34,6 +35,7 @@
 				title,
 				content,
 				image: images ? image : undefined,
+				tags: selectedTags.map((x) => x.id),
 			}),
 		});
 
@@ -43,7 +45,7 @@
 
 <BackBtn />
 
-<main class="p-4 m-2 mt-4 bg-slate-800 rounded-xl max-w-5xl">
+<main class="p-4 m-2 ml-4 mr-4 mt-4 bg-slate-800 rounded-xl max-w-5xl">
 	<h1 class="font-semibold text-lg ml-2">New Post:</h1>
 
 	<form on:submit|preventDefault={submit} class="p-2  ">
@@ -80,12 +82,12 @@
 			/>
 		{/if}
 
-		<AddTags tags={data.tags} />
+		<AddTags tags={data.tags} bind:selectedTags />
 
 		<button
 			type="submit"
 			disabled={title.length == 0 || content.length == 0}
-			class="mt-8 bg-blue-700 rounded-lg p-2 pt-1 pb-1 disabled:opacity-50 disabled:bg-slate-700 hover:bg-blue-500 duration-150"
+			class="mt-8 bg-blue-700 rounded-lg p-2 pt-1 pb-1 disabled:opacity-50 disabled:hover:bg-slate-700 disabled:bg-slate-700 hover:bg-blue-500 duration-150"
 			>Create new post</button
 		>
 	</form>

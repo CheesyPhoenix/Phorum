@@ -1,7 +1,6 @@
 import type { PageServerLoad } from "./$types";
 import { validateSessionRedirect } from "$lib/server/genSession";
 import { Prisma } from "$lib/server/PrismaClient";
-import { error } from "@sveltejs/kit";
 
 const prisma = Prisma.getPrisma();
 

@@ -17,7 +17,9 @@
 	}
 </script>
 
-<main class="p-4 m-2 mt-4 bg-slate-800 rounded-xl max-w-5xl relative">
+<BackBtn href="/" />
+
+<main class="p-4 m-2 mt-4 ml-4 mr-4 bg-slate-800 rounded-xl max-w-5xl relative">
 	<h3 class="font-bold">
 		{data.post.title}
 		<span class="opacity-50 font-normal"> - {data.post.author.name}</span>
@@ -33,8 +35,23 @@
 		/>
 	{/if}
 
+	{#if data.post.tags.length > 0}
+		<br />
+
+		{#each data.post.tags as tag}
+			<a
+				class="opacity-70 hover:underline block w-max"
+				href="/tags/{tag.id}">#{tag.name}</a
+			>
+		{/each}
+	{/if}
+
+	<!-- Buttons -->
 	{#if data.post.authorId === data.user.id}
-		<a href="/post/{data.post.id}/update" class="absolute top-4 right-12">
+		<a
+			href="/post/{data.post.id}/update"
+			class="absolute top-2 right-12 hover:bg-slate-600 p-1 rounded-lg duration-200 hover:drop-shadow-md"
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
@@ -51,7 +68,10 @@
 			</svg>
 		</a>
 
-		<button class="absolute top-4 right-4" on:click={deletePost}>
+		<button
+			class="absolute top-2 right-2 hover:bg-slate-600 p-1 rounded-lg duration-200 hover:drop-shadow-md"
+			on:click={deletePost}
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"

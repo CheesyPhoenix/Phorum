@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
+	import AddTags from "$lib/components/AddTags.svelte";
+	import BackBtn from "$lib/components/BackBtn.svelte";
 	import { error } from "@sveltejs/kit";
 	import type { PageData } from "./$types";
 
@@ -8,6 +10,9 @@
 	let title = data.post.title;
 	let content = data.post.content;
 	let images: FileList;
+	let selectedTags = data.tags.filter((x) =>
+		data.post.tags.map((x) => x.id).includes(x.id)
+	);
 
 	async function submit() {
 		let image = "";
@@ -32,6 +37,7 @@
 				title,
 				content,
 				image: images ? image : data.post.imageDataURL,
+				tags: selectedTags.map((x) => x.id),
 			}),
 		});
 
@@ -41,24 +47,9 @@
 	}
 </script>
 
-<a class="ml-4 mb-4 block" href="./"
-	><svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		stroke-width="1.5"
-		stroke="currentColor"
-		class="w-6 h-6"
-	>
-		<path
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
-		/>
-	</svg>
-</a>
+<BackBtn />
 
-<main class="p-4 m-2 mt-4 bg-slate-800 rounded-xl max-w-5xl">
+<main class="p-4 m-2 ml-4 mr-4 mt-4 bg-slate-800 rounded-xl max-w-5xl">
 	<h1 class="font-semibold text-lg ml-2">Edit Post:</h1>
 
 	<form on:submit|preventDefault={submit} class="p-2  ">
@@ -87,20 +78,20 @@
 			bind:files={images}
 		/>
 
-		{#if images || data.post.imageDataURL}
+		{#if images}
 			<img
-				src={images
-					? URL.createObjectURL(images[0])
-					: data.post.imageDataURL}
+				src={images ? URL.createObjectURL(images[0]) : undefined}
 				alt="uploaded"
 				class="max-w-52 max-h-52 mt-2"
 			/>
 		{/if}
 
+		<AddTags tags={data.tags} bind:selectedTags />
+
 		<button
 			type="submit"
 			disabled={title.length == 0 || content.length == 0}
-			class="mt-8 bg-blue-700 rounded-lg p-2 pt-1 pb-1 disabled:opacity-50 disabled:bg-slate-700 hover:bg-blue-500 duration-150"
+			class="mt-8 bg-blue-700 rounded-lg p-2 pt-1 pb-1 disabled:opacity-50 disabled:hover:bg-slate-700 disabled:bg-slate-700 hover:bg-blue-500 duration-150"
 			>Update post</button
 		>
 	</form>

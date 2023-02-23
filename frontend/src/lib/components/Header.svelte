@@ -90,6 +90,12 @@
 		>
 
 		<a
+			href="/tags"
+			class="hover:bg-slate-700 w-full block rounded-md pl-2 pr-2 duration-200 mb-1"
+			>Tags</a
+		>
+
+		<a
 			href="/logout"
 			class="hover:bg-slate-700 w-full block rounded-md pl-2 pr-2 duration-200 mb-1"
 			>Logout</a

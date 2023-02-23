@@ -1,4 +1,8 @@
-<a class="ml-4 mb-4 block" href="./"
+<script lang="ts">
+	export let href = "./";
+</script>
+
+<a class="ml-6 mb-4 block w-min" {href}
 	><svg
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"
