@@ -9,6 +9,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
 
 	const tags = await prisma.tag.findMany({
 		orderBy: { id: "desc" },
+		include: { posts: { select: { _count: true } } },
 	});
 
 	return { tags };

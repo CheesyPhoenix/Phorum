@@ -149,9 +149,9 @@
   },
   "active": "f0664fd943af04c4",
   "lastOpenFiles": [
+    "frontend/prisma/dev.db-journal",
     "frontend/vite.config.ts.timestamp-1677147949720.mjs",
     "frontend/vite.config.ts.timestamp-1677147193367.mjs",
-    "frontend/prisma/dev.db-journal",
     "frontend/prisma/migrations/20230223101306_remove_color_tags/migration.sql",
     "frontend/prisma/migrations/20230223101306_remove_color_tags",
     "frontend/src/routes/(protected)/newPost/+page.server.ts",
