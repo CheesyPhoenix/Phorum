@@ -1,0 +1,39 @@
+{
+	"name": "phorum",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"test": "playwright test",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.28.1",
+		"@svelte-put/clickoutside": "^2.0.0",
+		"@sveltejs/adapter-node": "^1.2.0",
+		"@sveltejs/kit": "^1.0.0",
+		"@types/bcrypt": "^5.0.0",
+		"autoprefixer": "^10.4.13",
+		"postcss": "^8.4.21",
+		"prisma": "^4.10.1",
+		"prisma-erd-generator": "^1.2.4",
+		"svelte": "^3.54.0",
+		"svelte-check": "^3.0.1",
+		"svelte-loading-spinners": "^0.3.4",
+		"tailwindcss": "^3.2.4",
+		"tslib": "^2.4.1",
+		"typescript": "^4.9.3",
+		"vite": "^4.0.0"
+	},
+	"type": "module",
+	"dependencies": {
+		"@prisma/client": "^4.10.1",
+		"bcrypt": "^5.1.0",
+		"sqlite": "^4.1.2",
+		"sqlite3": "^5.1.4",
+		"tailwind-scrollbar": "^2.1.0"
+	}
+}
