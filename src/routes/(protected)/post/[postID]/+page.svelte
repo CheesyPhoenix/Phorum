@@ -21,7 +21,7 @@
 <BackBtn href="/" />
 
 <main
-	class="p-4 m-2 mt-4 ml-4 mr-4 bg-slate-800 rounded-xl w-full absolute top-4"
+	class="p-4 bg-slate-800 rounded-xl w-full absolute top-8 left-4"
 	in:fly={{ x: 100, opacity: 0 }}
 	out:fly={{ x: -100, opacity: 0 }}
 >

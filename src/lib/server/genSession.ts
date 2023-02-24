@@ -4,10 +4,7 @@ import { error, type Cookies, redirect } from "@sveltejs/kit";
 const prisma = Prisma.getPrisma();
 
 export async function genNewSession(userId: number): Promise<string> {
-	console.log("new session");
-
 	const now = new Date();
-
 	await prisma.session.deleteMany({ where: { expire: { lt: now } } });
 
 	let key = randomBytes(32).toString("hex");
@@ -22,11 +19,9 @@ export async function genNewSession(userId: number): Promise<string> {
 	}
 
 	const expire = new Date();
-	expire.setUTCMinutes(expire.getUTCMinutes() + 30);
+	expire.setUTCMinutes(expire.getUTCMinutes() + 60);
 
 	await prisma.session.create({ data: { key, userId, expire } });
-
-	console.log("new session created");
 
 	return key;
 }

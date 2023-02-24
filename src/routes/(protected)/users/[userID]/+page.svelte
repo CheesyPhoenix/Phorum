@@ -47,7 +47,7 @@
 
 <BackBtn />
 
-<main class="m-2 mt-0 ml-4 absolute top-6 w-full" in:fade out:fade>
+<main class="absolute top-4 left-0 p-4 w-full" in:fade out:fade>
 	<div in:fly={{ x: 100, opacity: 0 }} out:fly={{ x: -100, opacity: 0 }}>
 		<h2 class="text-xl font-bold mb-3 pt-3 inline-block">
 			{data.pageUser.name}
@@ -68,7 +68,7 @@
 
 	{#each data.pageUser.posts as post, i}
 		<div
-			class="max-w-5xl relative"
+			class="relative"
 			in:fly={{ x: 100, opacity: 0, delay: 50 * i }}
 			out:fly={{ x: -100, opacity: 0, delay: 50 * i }}
 		>
