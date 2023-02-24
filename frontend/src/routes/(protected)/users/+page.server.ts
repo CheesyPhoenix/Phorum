@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ cookies, url }) => {
 
 	const users = await prisma.user.findMany({
 		orderBy: { id: "desc" },
-		select: { id: true, name: true },
+		select: { id: true, name: true, posts: { select: { _count: true } } },
 	});
 
 	return { users };

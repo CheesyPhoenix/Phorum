@@ -3,6 +3,7 @@
 	import AddTags from "$lib/components/AddTags.svelte";
 	import BackBtn from "$lib/components/BackBtn.svelte";
 	import type { Tag } from "@prisma/client";
+	import { fade, fly, scale, slide } from "svelte/transition";
 	import type { PageData } from "./$types";
 
 	let title = "";
@@ -45,7 +46,11 @@
 
 <BackBtn />
 
-<main class="p-4 m-2 ml-4 mr-4 mt-4 bg-slate-800 rounded-xl max-w-5xl">
+<main
+	class="p-4 m-2 ml-4 mr-4 mt-4 bg-slate-800 rounded-xl w-full absolute top-4"
+	in:fly={{ x: 100, opacity: 0 }}
+	out:fly={{ x: -100, opacity: 0 }}
+>
 	<h1 class="font-semibold text-lg ml-2">New Post:</h1>
 
 	<form on:submit|preventDefault={submit} class="p-2  ">
@@ -74,11 +79,11 @@
 			bind:files={images}
 		/>
 
-		{#if images}
+		{#if images && images[0]}
 			<img
 				src={images ? URL.createObjectURL(images[0]) : undefined}
 				alt="uploaded"
-				class="max-w-52 max-h-52 mt-2"
+				class="max-w-52 max-h-52"
 			/>
 		{/if}
 
@@ -96,7 +101,7 @@
 <style lang="postcss">
 	input,
 	textarea {
-		@apply block bg-slate-700 rounded-lg p-2;
+		@apply block bg-slate-700 rounded-lg p-2 max-w-[24rem] w-full;
 	}
 
 	label {

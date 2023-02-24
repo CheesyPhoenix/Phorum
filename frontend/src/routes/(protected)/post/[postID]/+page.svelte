@@ -2,6 +2,7 @@
 	import { goto } from "$app/navigation";
 	import BackBtn from "$lib/components/BackBtn.svelte";
 	import { error } from "@sveltejs/kit";
+	import { fly } from "svelte/transition";
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
@@ -19,7 +20,11 @@
 
 <BackBtn href="/" />
 
-<main class="p-4 m-2 mt-4 ml-4 mr-4 bg-slate-800 rounded-xl max-w-5xl relative">
+<main
+	class="p-4 m-2 mt-4 ml-4 mr-4 bg-slate-800 rounded-xl w-full absolute top-4"
+	in:fly={{ x: 100, opacity: 0 }}
+	out:fly={{ x: -100, opacity: 0 }}
+>
 	<h3 class="font-bold">
 		{data.post.title}
 		<span class="opacity-50 font-normal"> - {data.post.author.name}</span>

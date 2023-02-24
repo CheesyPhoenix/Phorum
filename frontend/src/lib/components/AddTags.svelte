@@ -4,7 +4,7 @@
 	import type { Tag } from "@prisma/client";
 	import { clickoutside } from "@svelte-put/clickoutside";
 	import { error } from "@sveltejs/kit";
-	import { slide } from "svelte/transition";
+	import { fade, slide } from "svelte/transition";
 
 	export let tags: Tag[];
 
@@ -59,7 +59,7 @@
 	</div>
 
 	<input
-		class="block bg-slate-700 rounded-lg p-1 pl-2 pr-2 w-full mt-1"
+		class="block bg-slate-700 rounded-lg p-1 pl-2 pr-2 w-full mt-1 mb-2"
 		placeholder="Search for tags..."
 		type="text"
 		bind:value={searchTerm}
@@ -68,59 +68,59 @@
 
 	{#if searching}
 		<div
-			class="bg-slate-900 p-2 mt-2 rounded-lg drop-shadow-2xl max-h-56 overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-700 scrollbar-thumb-rounded-md"
-			out:slide
-			in:slide
+			class="bg-slate-900 rounded-lg drop-shadow-2xl max-h-56 overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-700 scrollbar-thumb-rounded-md"
 		>
-			{#if selectedTags.length >= 3}
-				<p class="opacity-70" in:slide|local out:slide|local>
-					Max amount of tags selected
-				</p>
-			{:else}
-				<div in:slide|local out:slide|local>
-					{#if searchTerm.length > 0 && !tags.some((x) => x.name == searchTerm)}
-						<button
-							class="opacity-70 hover:underline block"
-							in:slide|local
-							out:slide|local
-							on:click={addTag}
-							type="button"
-						>
-							Tag not found? Add it!
-						</button>
-					{/if}
-
-					{#each tags as tag}
-						{#if !selectedTags.includes(tag) && tag.name
-								.toLowerCase()
-								.includes(searchTerm.toLowerCase())}
+			<div in:slide out:slide class="p-2">
+				{#if selectedTags.length >= 3}
+					<p class="opacity-70" in:slide|local out:slide|local>
+						Max amount of tags selected
+					</p>
+				{:else}
+					<div in:slide|local out:slide|local>
+						{#if searchTerm.length > 0 && !tags.some((x) => x.name == searchTerm)}
 							<button
+								class="opacity-70 hover:underline block"
 								in:slide|local
 								out:slide|local
-								class="block hover:bg-slate-800 duration-200 p-1 pt-0 pb-0 rounded-lg text-left"
+								on:click={addTag}
 								type="button"
-								on:click|preventDefault={() =>
-									(selectedTags = [...selectedTags, tag])}
-								>{tag.name}</button
 							>
+								Tag not found? Add it!
+							</button>
 						{/if}
-					{/each}
 
-					{#if tags.filter((x) => !selectedTags.includes(x) && x.name
-								.toLowerCase()
-								.includes(searchTerm.toLowerCase())).length == 0}
-						{#if searchTerm.length == 0}
-							<p
-								class="opacity-70"
-								in:slide|local
-								out:slide|local
-							>
-								No tags found
-							</p>
+						{#each tags as tag}
+							{#if !selectedTags.includes(tag) && tag.name
+									.toLowerCase()
+									.includes(searchTerm.toLowerCase())}
+								<button
+									in:slide|local
+									out:slide|local
+									class="block hover:bg-slate-800 duration-200 p-1 pt-0 pb-0 rounded-lg text-left"
+									type="button"
+									on:click|preventDefault={() =>
+										(selectedTags = [...selectedTags, tag])}
+									>{tag.name}</button
+								>
+							{/if}
+						{/each}
+
+						{#if tags.filter((x) => !selectedTags.includes(x) && x.name
+									.toLowerCase()
+									.includes(searchTerm.toLowerCase())).length == 0}
+							{#if searchTerm.length == 0}
+								<p
+									class="opacity-70"
+									in:slide|local
+									out:slide|local
+								>
+									No tags found
+								</p>
+							{/if}
 						{/if}
-					{/if}
-				</div>
-			{/if}
+					</div>
+				{/if}
+			</div>
 		</div>
 	{/if}
 </div>

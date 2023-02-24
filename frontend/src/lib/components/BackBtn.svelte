@@ -1,8 +1,14 @@
 <script lang="ts">
+	import { fly } from "svelte/transition";
+
 	export let href = "./";
 </script>
 
-<a class="ml-6 mb-4 block w-min" {href}
+<a
+	class="ml-6 mb-4 block w-min absolute top-0"
+	{href}
+	in:fly={{ x: 100, opacity: 0 }}
+	out:fly={{ x: -100, opacity: 0 }}
 	><svg
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"

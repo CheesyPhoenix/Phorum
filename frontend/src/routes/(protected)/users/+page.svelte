@@ -1,18 +1,30 @@
 <script lang="ts">
+	import { fade, fly } from "svelte/transition";
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
 </script>
 
-<h2 class="text-lg font-bold ml-4">Users</h2>
+<main class="p-4 pt-0 absolute top-0 w-full" in:fade out:fade>
+	<h2
+		class="text-lg font-bold mb-4"
+		in:fly={{ x: 100, opacity: 0 }}
+		out:fly={{ x: -100, opacity: 0 }}
+	>
+		Users
+	</h2>
 
-<main class="p-4">
-	{#each data.users as user}
+	{#each data.users as user, i}
 		<a
 			class="bg-slate-700 max-w-5xl p-4 mb-2 rounded-lg block hover:bg-slate-600 duration-200"
 			href="/users/{user.id}"
+			in:fly={{ x: 100, opacity: 0, delay: 50 * i }}
+			out:fly={{ x: -100, opacity: 0, delay: 50 * i }}
 		>
-			<p class="font-bold">{user.name}</p>
+			<p class="font-bold inline">{user.name}</p>
+			<p class="inline float-right opacity-70">
+				{user.posts.length} posts
+			</p>
 		</a>
 	{/each}
 </main>

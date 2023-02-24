@@ -3,6 +3,7 @@
 	import { page } from "$app/stores";
 	import BackBtn from "$lib/components/BackBtn.svelte";
 	import { error } from "@sveltejs/kit";
+	import { fade, fly } from "svelte/transition";
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
@@ -46,25 +47,31 @@
 
 <BackBtn />
 
-<main class="m-2 mt-0 ml-4 max-w-5xl">
-	<h2 class="text-xl font-bold mb-3 pt-3 inline-block">
-		{data.pageUser.name}
-	</h2>
-	{#if data.user.id == data.pageUser.id}
-		<button
-			on:click={deletePosts}
-			class="inline-block float-right hover:bg-red-500 duration-150 bg-red-700 w-max p-2 rounded-xl mb-6"
-			>Delete All Posts</button
-		>
-		<button
-			on:click={deleteUser}
-			class="inline-block float-right mr-2 hover:bg-red-500 duration-150 bg-red-700 w-max p-2 rounded-xl mb-6"
-			>Delete Account</button
-		>
-	{/if}
+<main class="m-2 mt-0 ml-4 absolute top-6 w-full" in:fade out:fade>
+	<div in:fly={{ x: 100, opacity: 0 }} out:fly={{ x: -100, opacity: 0 }}>
+		<h2 class="text-xl font-bold mb-3 pt-3 inline-block">
+			{data.pageUser.name}
+		</h2>
+		{#if data.user.id == data.pageUser.id}
+			<button
+				on:click={deletePosts}
+				class="inline-block float-right hover:bg-red-500 duration-150 bg-red-700 w-max p-2 rounded-xl mb-6"
+				>Delete All Posts</button
+			>
+			<button
+				on:click={deleteUser}
+				class="inline-block float-right mr-2 hover:bg-red-500 duration-150 bg-red-700 w-max p-2 rounded-xl mb-6"
+				>Delete Account</button
+			>
+		{/if}
+	</div>
 
-	{#each data.pageUser.posts as post}
-		<div class="max-w-5xl relative">
+	{#each data.pageUser.posts as post, i}
+		<div
+			class="max-w-5xl relative"
+			in:fly={{ x: 100, opacity: 0, delay: 50 * i }}
+			out:fly={{ x: -100, opacity: 0, delay: 50 * i }}
+		>
 			<a
 				class="bg-slate-700 p-4 mb-2 rounded-lg block hover:bg-slate-600 duration-200"
 				href="/post/{post.id}"
@@ -96,4 +103,14 @@
 			{/if}
 		</div>
 	{/each}
+
+	{#if data.pageUser.posts.length == 0}
+		<p
+			class="opacity-70 block w-max"
+			in:fly={{ x: 100, opacity: 0 }}
+			out:fly={{ x: -100, opacity: 0 }}
+		>
+			No posts found
+		</p>
+	{/if}
 </main>
