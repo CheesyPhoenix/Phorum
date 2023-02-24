@@ -19,6 +19,7 @@
 		let image = "";
 
 		if (images) {
+			// gjør bilde om til dataURL
 			const fr = new FileReader();
 
 			const img = new Promise<string>((res) => {
@@ -83,9 +84,11 @@
 			bind:files={images}
 		/>
 
-		{#if images}
+		{#if images || data.post.imageDataURL}
 			<img
-				src={images ? URL.createObjectURL(images[0]) : undefined}
+				src={images
+					? URL.createObjectURL(images[0])
+					: data.post.imageDataURL}
 				alt="uploaded"
 				class="max-w-52 max-h-52 mt-2"
 			/>
