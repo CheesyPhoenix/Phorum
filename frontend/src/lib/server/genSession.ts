@@ -3,6 +3,11 @@ import { Prisma } from "$lib/server/PrismaClient";
 import { error, type Cookies, redirect } from "@sveltejs/kit";
 const prisma = Prisma.getPrisma();
 
+/**
+ * Generates a new session for a user
+ * @param userId The id of the user
+ * @returns The new session
+ */
 export async function genNewSession(userId: number): Promise<string> {
 	console.log("new session");
 
@@ -31,6 +36,11 @@ export async function genNewSession(userId: number): Promise<string> {
 	return key;
 }
 
+/**
+ * Validates a session
+ * @param key The session to validate
+ * @returns The userId if session is valid, else returns undefined
+ */
 export async function validateSession(
 	key: string
 ): Promise<number | undefined> {
@@ -43,6 +53,11 @@ export async function validateSession(
 	return session == null ? undefined : session.userId;
 }
 
+/**
+ * Validates a session, redirects to the login page if session is invalid
+ * @param key The session to validate
+ * @returns The ``userId`` if session is valid, else redirects to the login page
+ */
 export async function validateSessionRedirect(cookies: Cookies, url: URL) {
 	const key = cookies.get("key");
 	if (!key) throw redirect(303, "/login?callback=" + url.pathname);
@@ -54,6 +69,11 @@ export async function validateSessionRedirect(cookies: Cookies, url: URL) {
 	return userId;
 }
 
+/**
+ * Validates a session, throws SK error 401 if session is invalid
+ * @param key The session to validate
+ * @returns The ``userId`` if session is valid, else throws SK error 401
+ */
 export async function validateSessionError(cookies: Cookies) {
 	const key = cookies.get("key");
 	if (!key) throw error(401);
