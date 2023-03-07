@@ -11,7 +11,7 @@ Krav til prosjekt:
 	- [x] Hashing av passord o Innlogging / Utlogging
 	- [x] Begrense tilgang basert på om en er logget inn eller ikke 
 	- [x] Gjøre det mulig å slette data om seg selv
-- [ ] Video der du går gjennom og forklarer hvordan du innfrir alle vurderingskriteriene på neste side.
+- [x] Video der du går gjennom og forklarer hvordan du innfrir alle vurderingskriteriene på neste side.
 
 
 - Kan ta i bruk node.js og nødvendige moduler(eller annen relevant teknologi), og bruke teknologien til å innfrikravtil oppgaven over.
