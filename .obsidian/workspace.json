@@ -149,6 +149,7 @@
   },
   "active": "f0664fd943af04c4",
   "lastOpenFiles": [
+    "prisma/dev.db-journal",
     "frontend/prisma/dev.db-journal",
     "frontend/vite.config.ts.timestamp-1677147949720.mjs",
     "frontend/vite.config.ts.timestamp-1677147193367.mjs",
@@ -159,7 +160,6 @@
     "frontend/vite.config.ts.timestamp-1677146531905.mjs",
     "frontend/vite.config.ts.timestamp-1677145141443.mjs",
     "frontend/prisma/migrations/20230223093756_tags/migration.sql",
-    "frontend/prisma/migrations/20230223093756_tags",
     "frontend/node_modules/svelte-loading-spinners/README.md",
     "Untitled.canvas",
     "oppgave.md",
