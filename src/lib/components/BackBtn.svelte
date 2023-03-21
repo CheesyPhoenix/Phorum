@@ -5,7 +5,7 @@
 </script>
 
 <a
-	class="ml-6 mb-4 block w-min absolute top-0"
+	class="ml-2 mb-4 block w-min absolute top-0"
 	{href}
 	in:fly={{ x: 100, opacity: 0 }}
 	out:fly={{ x: -100, opacity: 0 }}

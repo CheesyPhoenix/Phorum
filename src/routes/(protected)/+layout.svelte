@@ -6,10 +6,10 @@
 	export let data: LayoutData;
 </script>
 
-<div in:fade out:fade>
+<div in:fade out:fade class="">
 	<Header username={data.user.name} userID={data.user.id} />
 
-	<div class="relative max-w-5xl">
+	<div class="relative max-w-5xl ml-4 mr-4">
 		<slot />
 	</div>
 </div>

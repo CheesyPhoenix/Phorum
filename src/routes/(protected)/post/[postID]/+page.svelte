@@ -21,13 +21,33 @@
 <BackBtn href="/" />
 
 <main
-	class="p-4 bg-slate-800 rounded-xl w-full absolute top-8 left-4"
+	class="p-4 bg-slate-800 rounded-xl w-full absolute top-8 left-0 overflow-x-hidden"
 	in:fly={{ x: 100, opacity: 0 }}
 	out:fly={{ x: -100, opacity: 0 }}
 >
 	<h3 class="font-bold">
 		{data.post.title}
 		<span class="opacity-50 font-normal"> - {data.post.author.name}</span>
+		<span class="float-right opacity-50 font-normal"
+			>{data.post.updatedAt?.toLocaleString("en", {
+				hour12: false,
+				hourCycle: "h24",
+				year: "numeric",
+				month: "2-digit",
+				day: "2-digit",
+				hour: "2-digit",
+				minute: "2-digit",
+			}) ??
+				data.post.createdAt.toLocaleString("en", {
+					hour12: false,
+					hourCycle: "h24",
+					year: "numeric",
+					month: "2-digit",
+					day: "2-digit",
+					hour: "2-digit",
+					minute: "2-digit",
+				})}</span
+		>
 	</h3>
 
 	<p>{data.post.content}</p>

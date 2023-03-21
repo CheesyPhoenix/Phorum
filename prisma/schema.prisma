@@ -16,13 +16,15 @@ datasource db {
 }
 
 model Post {
-  id            Int     @id @default(autoincrement())
-  author        User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  id            Int       @id @default(autoincrement())
+  author        User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId      Int
   title         String
   content       String
   imageDataURL  String?
   tags          Tag[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime?  @updatedAt
 }
 
 model User {
@@ -31,6 +33,7 @@ model User {
   passHash  String
   posts     Post[]
   sessions  Session[]
+  comments  Comment[]
 }
 
 model Session {
@@ -45,4 +48,13 @@ model Tag {
   id        Int     @id @default(autoincrement())
   name      String  @unique    
   posts     Post[]
+}
+
+model Comment {
+  id            Int     @id @default(autoincrement())
+  author        User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId      Int
+  message       String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime?  @updatedAt
 }
