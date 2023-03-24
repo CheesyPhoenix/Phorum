@@ -19,7 +19,14 @@ export const load: LayoutServerLoad = async ({ params, cookies, url }) => {
 
 	const post = await prisma.post.findUnique({
 		where: { id },
-		include: { author: { select: { name: true } }, tags: true },
+		include: {
+			author: { select: { name: true } },
+			tags: true,
+			comments: {
+				include: { author: { select: { name: true } } },
+				orderBy: { createdAt: "asc" },
+			},
+		},
 	});
 
 	if (post == null) throw error(404);
