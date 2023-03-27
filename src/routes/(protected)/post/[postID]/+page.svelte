@@ -70,7 +70,7 @@
 	out:fly={{ x: -100, opacity: 0 }}
 >
 	<div class="bg-slate-800 p-4 rounded-xl mb-4">
-		<h3 class="font-bold">
+		<h3 class="font-bold {data.post.authorId == data.user.id ? "mr-20" : ""}">
 			{data.post.title}
 			<span class="opacity-50 font-normal">
 				- {data.post.author.name}</span
